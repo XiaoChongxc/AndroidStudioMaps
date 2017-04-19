@@ -32,7 +32,7 @@ import java.util.Map;
  */
 
 public class ExplosionLayout extends View {
-    final String TAG = "ExplosionView";
+    final String TAG = "ExplosionLayout";
 
     /***
      * 刷新频率
@@ -42,6 +42,10 @@ public class ExplosionLayout extends View {
      * 动画时长
      */
     private int animation_time = 2000;
+    /**
+     * 当前动画效果的实现类
+     */
+    private Explosion explosion;
 
     Map<View, ValueAnimator> explostionSet;
     Paint mPaint;
@@ -62,6 +66,45 @@ public class ExplosionLayout extends View {
         init();
     }
 
+    /**
+     * 给view 一个监听，当被点击的时候，执行动画效果
+     *
+     * @param view
+     */
+    public void addLinstener(final View view) {
+        view.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                explosion(view);
+            }
+        });
+    }
+
+    /**
+     * 设置一个动画效果
+     *
+     * @param explosion 动画效果的实现类
+     */
+    public void setExplosion(Explosion explosion) {
+        this.explosion = explosion;
+        postInvalidate();
+    }
+
+    /**
+     * 设置刷新频率
+     * @param refresh_time
+     */
+    public void setRefreshTime(int refresh_time) {
+        this.refresh_time = refresh_time;
+    }
+
+    /**
+     * 设置动画持续时间
+     * @param animation_time
+     */
+    public void setAnimationTime(int animation_time) {
+        this.animation_time = animation_time;
+    }
 
     private void init() {
         attach2Activity((Activity) getContext());
@@ -82,18 +125,9 @@ public class ExplosionLayout extends View {
         }
     }
 
-    public void addLinstener(final View view) {
-        view.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                explosion(view);
-            }
-        });
-    }
-
 
     /***
-     * 爆炸效果
+     * 给 view 添加动画效果
      *
      * @param view
      */
@@ -121,13 +155,16 @@ public class ExplosionLayout extends View {
             }
         });
         explosionAnimation.start();
-        startthread();
+        startThread();
     }
 
     Thread mThread;
     boolean isStop = false;
 
-    public void startthread() {
+    /***
+     * 开启一个线程， 用来刷新当前view
+     */
+    private void startThread() {
         if (mThread == null) {
             isStop = false;
             mThread = new Thread() {
@@ -170,20 +207,28 @@ public class ExplosionLayout extends View {
         rootView.addView(this, lp);
     }
 
-
-    public void play(Canvas canvas, View view, ValueAnimator animation) {
+    /***
+     * 播放动画， 动态改变view 的状态
+     *
+     * @param canvas    画板
+     * @param view      当前view
+     * @param animation 动画
+     */
+    private void play(Canvas canvas, View view, ValueAnimator animation) {
         if (!animation.isStarted()) { //动画结束时停止
             return;
         }
         //这里 作为可变参数 设置， 默认是 粒子状 ，后续添加 其他类别
-        Particle p = new Particle();
+        if (explosion == null) {
+            explosion = new Particle();
+        }
         Rect mRect = new Rect();
         view.getGlobalVisibleRect(mRect);
         //因为状态栏的高度问题， 这里要进行一个高度的偏移
         mRect.offset(0, -DensityUtils.dp2px(view.getContext(), 21));
         Bitmap bit = createBitmapFromView(view);
-        p.draw(canvas, mPaint, bit, (Float) animation.getAnimatedValue(), mRect);
-        startthread();
+        explosion.draw(canvas, mPaint, bit, (Float) animation.getAnimatedValue(), mRect);
+        startThread();
     }
 
 
