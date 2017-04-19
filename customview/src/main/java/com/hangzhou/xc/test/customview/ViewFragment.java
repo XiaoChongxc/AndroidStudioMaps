@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.hangzhou.xc.test.customview.adapter.ViewFragmentAdapter;
 import com.hangzhou.xc.test.customview.model.ItemModel;
+import com.hangzhou.xc.test.customview.view.ExplosionView.ExplosionActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class ViewFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         List<ItemModel> list = new ArrayList<>();
-        list.add(new ItemModel("1111111111", "222222222222222", MainActivity.class));
+        list.add(new ItemModel("粒子爆炸view", "让任何view ，点击的时候变成像素粒子，碎裂到屏幕底部，动画结束后重新展示", ExplosionActivity.class));
 
         ViewFragmentAdapter adapter = new ViewFragmentAdapter(getActivity(), list);
         recyclerView.setAdapter(adapter);

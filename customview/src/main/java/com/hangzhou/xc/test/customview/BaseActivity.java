@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
+import android.view.MenuItem;
 
 /**
  * author :   Xchong
@@ -27,10 +27,12 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == android.R.id.home) {
-            finish();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -29,13 +29,11 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                new ViewFragment();
-                break;
+                return new ViewFragment();
             case 1:
-                new ViewGroupFragment();
-                break;
+                return new ViewGroupFragment();
         }
-        return     new ViewFragment();
+        return new ViewFragment();
     }
 
     @Override

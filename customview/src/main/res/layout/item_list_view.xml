@@ -22,10 +22,12 @@
             android:text="ssssssss" />
         <View style="@style/line_h" />
         <TextView
+            android:paddingBottom="@dimen/padding_v"
             android:textColor="@color/text_description_color"
+            android:layout_height="wrap_content"
             android:id="@+id/tv_description"
             style="@style/baseText"
-            android:text="ssssssss" />
+            android:text="ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss " />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>
