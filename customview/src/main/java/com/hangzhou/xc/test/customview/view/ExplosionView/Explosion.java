@@ -24,4 +24,6 @@ public interface Explosion {
      * @param rect view在屏幕中的位置
      */
     void draw(Canvas canvas, Paint mPaint, Bitmap bit, float factor, Rect rect);
+
+
 }

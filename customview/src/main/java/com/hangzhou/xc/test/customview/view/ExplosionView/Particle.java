@@ -84,6 +84,7 @@ public class Particle implements Explosion {
 
     Particle[][] mParticles;
 
+
     @Override
     public void draw(Canvas canvas, Paint mPaint, Bitmap bit, float factor, Rect rect) {
         initParticle(bit, rect);
