@@ -4,8 +4,6 @@ import android.animation.TypeEvaluator;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 
-import com.hangzhou.xc.test.customview.util.L;
-
 /**
  * author :   Xchong
  * 项目名：   AndroidStudioMaps
@@ -27,7 +25,6 @@ public class ExplosionEvaluator implements TypeEvaluator {
     @Override
     public Object evaluate(float fraction, Object startValue, Object endValue) {
         explosion.setFactor((((Explosion) endValue).getFactor() - ((Explosion) startValue).getFactor()) * fraction);
-        L.e(explosion.getFactor() + "===============");
         return explosion;
     }
 }

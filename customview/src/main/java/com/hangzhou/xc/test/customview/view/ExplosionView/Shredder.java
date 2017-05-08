@@ -5,8 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.hangzhou.xc.test.customview.util.L;
-
 /**
  * author :   Xchong
  * 项目名：   AndroidStudioMaps
@@ -39,7 +37,6 @@ public class Shredder extends Explosion {
 
     @Override
     public void draw(Canvas canvas, Paint mPaint, float factor) {
-        L.e("Draw --------------------------------------");
         mPaint.setAlpha(255);
 
 //        for (int i = 0; i < slices.length; i++) {

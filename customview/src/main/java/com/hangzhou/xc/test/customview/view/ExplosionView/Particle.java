@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.hangzhou.xc.test.customview.util.L;
-
 import java.util.Random;
 
 /**
@@ -43,7 +41,6 @@ public class Particle extends Explosion {
 
     @Override
     public void draw(Canvas canvas, Paint mPaint, float factor) {
-        L.e("Draw --------------------------------------");
         //画出像素点
         for (Point[] particles : mPoints) {
             for (Point p : particles) {
@@ -54,7 +51,7 @@ public class Particle extends Explosion {
 //                mPaint.setAlpha((int) (progress * 255));//只是这样设置，透明色会显示为黑色
                 int alpha = (int) (Color.alpha(p.getColor()) * progress);
                 mPaint.setAlpha(alpha); //这样透明颜色就不是黑色了
-                canvas.drawCircle(p.getX(), p.getY(), p.getSize(), mPaint);
+                canvas.drawCircle(p.getX() + mRect.left, p.getY() + mRect.top, p.getSize(), mPaint);
             }
         }
     }
@@ -88,11 +85,11 @@ public class Particle extends Explosion {
      */
     private void advance(Point p, float factor) {
         //调整大小
-        p.setSize((int) (p.getSize() * factor));
+        p.setSize((int) (DEFAULT_SIZE * factor));
         //左右随机偏移
-        p.setX((int) (mRect.left + p.getX() + (1 - new Random().nextFloat()) * offset));
+        p.setX((int) (p.getX() + (0.5f - new Random().nextFloat()) * offset));
         //设置 Y
-        p.setY((int) (mRect.top + mRect.bottom * (1 - factor) + p.getY()) + new Random().nextInt(mRect.height() / 2));
+        p.setY((int) (mRect.bottom * (1 - factor) + p.getY()) + new Random().nextInt(mRect.height() / 2));
     }
 
 

@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import com.hangzhou.xc.test.customview.util.DensityUtils;
-import com.hangzhou.xc.test.customview.util.L;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,6 +46,10 @@ public class ExplosionLayout extends View {
      * 当前动画效果的实现类
      */
 
+
+    private int type = 0;
+    public static final int TYPE_PARTICLE = 0;
+    public static final int TYPE_SHREDDER = 1;
     Map<View, ValueAnimator> explostionSet;
     Paint mPaint;
     Iterator it;
@@ -80,15 +83,13 @@ public class ExplosionLayout extends View {
         });
     }
 
-    private Explosion explosionType;
-
     /**
      * 设置一个动画效果
      *
-     * @param explosion 动画效果的实现类
+     * @param type 动画效果的实现类Type
      */
-    public void setExplosion(Explosion explosion) {
-        this.explosionType = explosion;
+    public void setExplosion(int type) {
+        this.type = type;
         postInvalidate();
     }
 
@@ -146,15 +147,14 @@ public class ExplosionLayout extends View {
         mRect.offset(0, -DensityUtils.dp2px(view.getContext(), 21));
         Bitmap bit = createBitmapFromView(view);
         Explosion explosion;
-        if (explosionType == null) {
+        if (type == TYPE_SHREDDER) {
+            explosion = new Shredder();
+        } else {
             explosion = new Particle();
-        }else{
-            explosion = explosionType;
         }
 
         final ValueAnimator explosionAnimation = ValueAnimator.ofObject(new ExplosionEvaluator(explosion, bit, mRect),
                 new Shredder(0), new Shredder(1));
-
         explosionAnimation.setDuration(animation_time);
         //不能重复添加
         if (explostionSet.containsKey(view)) {
@@ -178,10 +178,6 @@ public class ExplosionLayout extends View {
         explosionAnimation.start();
         startThread();
     }
-
-    private int type = 0;
-    public static final int TYPE_PARTICLE = 0;
-    public static final int TYPE_SHREDDER = 1;
 
 
     Thread mThread;
@@ -243,7 +239,6 @@ public class ExplosionLayout extends View {
         if (!animation.isStarted()) { //动画结束时停止
             return;
         }
-        L.e("play-----------------------------");
         Explosion explosion = (Explosion) animation.getAnimatedValue();
         explosion.draw(canvas, mPaint, explosion.getFactor());
         startThread();
