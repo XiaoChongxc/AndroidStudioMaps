@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import com.hangzhou.xc.test.customview.util.DensityUtils;
+import com.hangzhou.xc.test.customview.util.L;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -45,7 +46,6 @@ public class ExplosionLayout extends View {
     /**
      * 当前动画效果的实现类
      */
-    private Explosion explosion;
 
     Map<View, ValueAnimator> explostionSet;
     Paint mPaint;
@@ -80,18 +80,21 @@ public class ExplosionLayout extends View {
         });
     }
 
+    private Explosion explosionType;
+
     /**
      * 设置一个动画效果
      *
      * @param explosion 动画效果的实现类
      */
     public void setExplosion(Explosion explosion) {
-        this.explosion = explosion;
+        this.explosionType = explosion;
         postInvalidate();
     }
 
     /**
      * 设置刷新频率
+     *
      * @param refresh_time
      */
     public void setRefreshTime(int refresh_time) {
@@ -100,6 +103,7 @@ public class ExplosionLayout extends View {
 
     /**
      * 设置动画持续时间
+     *
      * @param animation_time
      */
     public void setAnimationTime(int animation_time) {
@@ -121,7 +125,7 @@ public class ExplosionLayout extends View {
             Map.Entry entry = (Map.Entry) it.next();
             View view = (View) entry.getKey();
             ValueAnimator value = (ValueAnimator) entry.getValue();
-            play(canvas, view, value);
+            play(canvas, value);
         }
     }
 
@@ -133,7 +137,24 @@ public class ExplosionLayout extends View {
      */
     private void explosion(final View view) {
         //获取到传进来view 的位置信息
-        final ValueAnimator explosionAnimation = ValueAnimator.ofFloat(0, 1);
+
+//        final ValueAnimator explosionAnimation = ValueAnimator.ofFloat(0, 1);
+        //这里 作为可变参数 设置， 默认是 粒子状 ，后续添加 其他类别
+        Rect mRect = new Rect();
+        view.getGlobalVisibleRect(mRect);
+        //因为状态栏的高度问题， 这里要进行一个高度的偏移
+        mRect.offset(0, -DensityUtils.dp2px(view.getContext(), 21));
+        Bitmap bit = createBitmapFromView(view);
+        Explosion explosion;
+        if (explosionType == null) {
+            explosion = new Particle();
+        }else{
+            explosion = explosionType;
+        }
+
+        final ValueAnimator explosionAnimation = ValueAnimator.ofObject(new ExplosionEvaluator(explosion, bit, mRect),
+                new Shredder(0), new Shredder(1));
+
         explosionAnimation.setDuration(animation_time);
         //不能重复添加
         if (explostionSet.containsKey(view)) {
@@ -157,6 +178,11 @@ public class ExplosionLayout extends View {
         explosionAnimation.start();
         startThread();
     }
+
+    private int type = 0;
+    public static final int TYPE_PARTICLE = 0;
+    public static final int TYPE_SHREDDER = 1;
+
 
     Thread mThread;
     boolean isStop = false;
@@ -211,23 +237,15 @@ public class ExplosionLayout extends View {
      * 播放动画， 动态改变view 的状态
      *
      * @param canvas    画板
-     * @param view      当前view
      * @param animation 动画
      */
-    private void play(Canvas canvas, View view, ValueAnimator animation) {
+    private void play(Canvas canvas, ValueAnimator animation) {
         if (!animation.isStarted()) { //动画结束时停止
             return;
         }
-        //这里 作为可变参数 设置， 默认是 粒子状 ，后续添加 其他类别
-        if (explosion == null) {
-            explosion = new Particle();
-        }
-        Rect mRect = new Rect();
-        view.getGlobalVisibleRect(mRect);
-        //因为状态栏的高度问题， 这里要进行一个高度的偏移
-        mRect.offset(0, -DensityUtils.dp2px(view.getContext(), 21));
-        Bitmap bit = createBitmapFromView(view);
-        explosion.draw(canvas, mPaint, bit, (Float) animation.getAnimatedValue(), mRect);
+        L.e("play-----------------------------");
+        Explosion explosion = (Explosion) animation.getAnimatedValue();
+        explosion.draw(canvas, mPaint, explosion.getFactor());
         startThread();
     }
 
