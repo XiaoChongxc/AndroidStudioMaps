@@ -13,9 +13,18 @@ import android.graphics.Rect;
  * 时间   ：  13:43
  * 描述   ： 玻璃破碎的效果
  */
-public class GlassBroken implements Explosion {
+public class GlassBroken extends Explosion {
+    public GlassBroken(float factor) {
+        super(factor);
+    }
+
     @Override
-    public void draw(Canvas canvas, Paint mPaint, Bitmap bit, float factor, Rect rect) {
-        
+    void init(Bitmap bit, Rect mRect) {
+
+    }
+
+    @Override
+    void draw(Canvas canvas, Paint mPaint, float factor) {
+
     }
 }

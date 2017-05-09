@@ -66,11 +66,11 @@ public class ExplosionActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_particle:
-                explosionLayout.setExplosion(new Particle());
+                explosionLayout.setExplosion(ExplosionLayout.TYPE_PARTICLE);
                 explosionLayout.postInvalidate();
                 break;
             case R.id.menu_shredder:
-                explosionLayout.setExplosion(new Shredder());
+                explosionLayout.setExplosion(ExplosionLayout.TYPE_SHREDDER);
                 explosionLayout.postInvalidate();
                 break;
         }

@@ -13,17 +13,41 @@ import android.graphics.Rect;
  * 时间   ：  11:44
  * 描述   ： ExplosionLayout 作为一个 壳子， 具体的爆炸方式 由实现类去控制
  */
-public interface Explosion {
+public abstract class Explosion {
+    public Bitmap bit;
+    public Rect mRect;
+    private float factor;
+
+    public float getFactor() {
+        return factor;
+    }
+
+    public void setFactor(float factor) {
+        this.factor = factor;
+    }
+
+    public Explosion(float factor) {
+        this.factor = factor;
+    }
+
+    public Explosion() {
+    }
+
+    /***
+     * 初始化
+     *
+     * @param bit
+     */
+    abstract void init(Bitmap bit, Rect mRect);
 
     /***
      * 画出效果
+     *
      * @param canvas 画板
      * @param mPaint 画笔
-     * @param bit   view 的 bitmap
      * @param factor 当前动画进度
-     * @param rect view在屏幕中的位置
      */
-    void draw(Canvas canvas, Paint mPaint, Bitmap bit, float factor, Rect rect);
+    abstract void draw(Canvas canvas, Paint mPaint, float factor);
 
 
 }

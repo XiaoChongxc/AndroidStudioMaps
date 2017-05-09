@@ -14,34 +14,45 @@ import android.graphics.Rect;
  * 描述   ： 碎纸机  样式
  * 把bitmap变成横向的一小段 ，从上往下掉落
  */
-public class Shredder implements Explosion {
+public class Shredder extends Explosion {
     private final int DEFAULT_HEIGHT = 20;
     private final int slice_height = DEFAULT_HEIGHT;
     Slice[] slices;
     int speed = 10;
 
+    public Shredder() {
+
+    }
+
+    public Shredder(float factor) {
+        super(factor);
+    }
+
     @Override
-    public void draw(Canvas canvas, Paint mPaint, Bitmap bit, float factor, Rect rect) {
-        mPaint.setAlpha(255);
+    void init(Bitmap bit, Rect mRect) {
+        this.mRect = mRect;
+        this.bit = bit;
         initSlices(bit);
+    }
+
+    @Override
+    public void draw(Canvas canvas, Paint mPaint, float factor) {
+        mPaint.setAlpha(255);
+
 //        for (int i = 0; i < slices.length; i++) {
 //            Slice slice = slices[i];
 //            canvas.drawBitmap(slice.getBitmap(), rect.left + slice.getX(), rect.top + slice.getY() + factor * speed * (i+1) * slice_height, mPaint);
 //        }
-
         /**
          * 依次 下落， 自由落体式， 加速度
          */
         for (int i = 0; i < slices.length; i++) {
             Slice slice = slices[i];
-            int y = (int) (factor * speed * slice_height * (i + 1) ) - (slices.length - i - 1) * slice_height;
+            int y = (int) (factor * speed * slice_height * (i + 1)) - (slices.length - i - 1) * slice_height;
             if (y <= 0) y = 0;
-            canvas.drawBitmap(slice.getBitmap(), rect.left + slice.getX(), rect.top + slice.getY() + y, mPaint);
+            canvas.drawBitmap(slice.getBitmap(), mRect.left + slice.getX(), mRect.top + slice.getY() + y, mPaint);
         }
-
-
     }
-
 
     private void initSlices(Bitmap bit) {
         int size = (int) Math.ceil(bit.getHeight() * 1f / slice_height);
