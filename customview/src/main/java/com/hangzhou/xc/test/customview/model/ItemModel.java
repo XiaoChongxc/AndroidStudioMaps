@@ -15,6 +15,7 @@ public class ItemModel  {
     private Class clazz;
     private String uri;
 
+
     public String getUri() {
         return uri;
     }

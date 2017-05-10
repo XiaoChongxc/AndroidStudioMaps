@@ -23,8 +23,8 @@ public class PlaySoundActivity extends BaseListActivity {
     }
 
     @Override
-    public void oninitComplete() {
-        super.oninitComplete();
+    public void onInitComplete() {
+        super.onInitComplete();
         adapter.setOnItemClickListener(new BaseListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {

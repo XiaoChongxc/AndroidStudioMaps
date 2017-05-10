@@ -7,31 +7,47 @@ import android.view.View;
  * author :   Xchong
  * 项目名：   AndroidStudioMaps
  * 包名   :   com.hangzhou.xc.test.customview.adapter.viewholder
- * 日期   :   2017/5/5
- * 时间   ：  16:06
+ * 日期   :   2017/5/10
+ * 时间   ：  10:30
  * 描述   ：
  */
 
-public class BaseViewholder extends RecyclerView.ViewHolder {
+public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
 
-    private View itemView;
 
-    public BaseViewholder(View itemView) {
+    public BaseViewHolder(View itemView) {
         super(itemView);
-        this.itemView = itemView;
     }
 
-    /**
-     * 子类重写方法， 设置数据
-     *
-     * @param data
-     */
-    public void setData(Object data) {
+    public abstract void setData(Object data);
 
+
+    private static int viewType;
+
+    public static int ZoomHeadHolder = 1;
+
+
+    public static void setViewType(int viewType) {
+        BaseViewHolder.viewType = viewType;
     }
 
-    public View getItemView() {
-        return itemView;
+    public static BaseViewHolder getViewHolder(View view) {
+        switch (viewType) {
+            case 1:
+                return new ZoomHeadHolder(view);
+            default:
+                return new ZoomHeadHolder(view);
+        }
     }
+
+    public static int getLayoutRes() {
+        switch (viewType) {
+            case 1:
+                return 1;
+            default:
+                return 1;
+        }
+    }
+
 
 }

@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hangzhou.xc.test.customview.adapter.viewholder.BaseViewholder;
+import com.hangzhou.xc.test.customview.adapter.viewholder.BaseViewHolder;
 
 import java.util.List;
 
@@ -19,37 +19,45 @@ import java.util.List;
  * 描述   ：
  */
 
-public class BaseListAdapter extends RecyclerView.Adapter<BaseViewholder> {
+public class BaseListAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private List list;
     private Context ctx;
+    private int viewType;
+
     /**
      * viewholder 的资源id
      */
-    private int viewholderRES;
 
-    public BaseListAdapter(List list, Context ctx, int viewholderRES) {
+    public BaseListAdapter(List list, Context ctx, int viewType) {
         this.list = list;
         this.ctx = ctx;
-        this.viewholderRES = viewholderRES;
+        this.viewType = viewType;
     }
 
     @Override
-    public BaseViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(ctx).inflate(viewholderRES, parent, false);
-        return new BaseViewholder(view);
+    public int getItemViewType(int position) {
+        return viewType;
     }
 
     @Override
-    public void onBindViewHolder(final BaseViewholder holder, int position) {
-        holder.setData(list.get(position));
+    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        BaseViewHolder.setViewType(viewType);
+        View view = LayoutInflater.from(ctx).inflate(BaseViewHolder.getLayoutRes(), parent, false);
+        final BaseViewHolder holder = BaseViewHolder.getViewHolder(view);
         if (listener != null) {
-            holder.getItemView().setOnClickListener(new View.OnClickListener() {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     listener.onItemClick(holder.getAdapterPosition());
                 }
             });
         }
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(final BaseViewHolder holder, int position) {
+        holder.setData(list.get(position));
     }
 
     @Override

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.hangzhou.xc.test.customview.adapter.ViewFragmentAdapter;
 import com.hangzhou.xc.test.customview.model.ItemModel;
 import com.hangzhou.xc.test.customview.view.ExplosionView.ExplosionActivity;
+import com.hangzhou.xc.test.customview.view.ZoomHead.ZoomHeadActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class ViewFragment extends Fragment {
 
         List<ItemModel> list = new ArrayList<>();
         list.add(new ItemModel("粒子爆炸view", "让任何view ，点击的时候变成像素粒子，碎裂到屏幕底部，动画结束后重新展示", ExplosionActivity.class));
+        list.add(new ItemModel("仿饿了么交互","饿了么  列表到 viewpager 再到详情的交互， 比较炫酷" ,ZoomHeadActivity.class));
 
         ViewFragmentAdapter adapter = new ViewFragmentAdapter(getActivity(), list);
         recyclerView.setAdapter(adapter);

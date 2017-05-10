@@ -138,7 +138,6 @@ public class ExplosionLayout extends View {
      */
     private void explosion(final View view) {
         //获取到传进来view 的位置信息
-
 //        final ValueAnimator explosionAnimation = ValueAnimator.ofFloat(0, 1);
         //这里 作为可变参数 设置， 默认是 粒子状 ，后续添加 其他类别
         Rect mRect = new Rect();
@@ -147,37 +146,37 @@ public class ExplosionLayout extends View {
         mRect.offset(0, -DensityUtils.dp2px(view.getContext(), 21));
         Bitmap bit = createBitmapFromView(view);
         Explosion explosion;
-        if (type == TYPE_SHREDDER) {
-            explosion = new Shredder();
-        } else {
-            explosion = new Particle();
-        }
-
-        final ValueAnimator explosionAnimation = ValueAnimator.ofObject(new ExplosionEvaluator(explosion, bit, mRect),
-                new Shredder(0), new Shredder(1));
-        explosionAnimation.setDuration(animation_time);
-        //不能重复添加
-        if (explostionSet.containsKey(view)) {
-            return;
-        }
-        explostionSet.put(view, explosionAnimation);
-        explosionAnimation.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                //动画开始的时候 需要隐藏原来的view
-                view.animate().alpha(0).setDuration(150).start();
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                //动画结束   显示view  并且 移除动画
-                view.animate().alpha(1f).setDuration(150).start();
-                explostionSet.remove(view);
-            }
-        });
-        explosionAnimation.start();
-        startThread();
+    if (type == TYPE_SHREDDER) {
+        explosion = new Shredder();
+    } else {
+        explosion = new Particle();
     }
+
+    final ValueAnimator explosionAnimation = ValueAnimator.ofObject(new ExplosionEvaluator(explosion, bit, mRect),
+            new Shredder(0), new Shredder(1));
+    explosionAnimation.setDuration(animation_time);
+    //不能重复添加
+    if (explostionSet.containsKey(view)) {
+        return;
+    }
+    explostionSet.put(view, explosionAnimation);
+    explosionAnimation.addListener(new AnimatorListenerAdapter() {
+        @Override
+        public void onAnimationStart(Animator animation) {
+            //动画开始的时候 需要隐藏原来的view
+            view.animate().alpha(0).setDuration(150).start();
+        }
+
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            //动画结束   显示view  并且 移除动画
+            view.animate().alpha(1f).setDuration(150).start();
+            explostionSet.remove(view);
+        }
+    });
+    explosionAnimation.start();
+    startThread();
+}
 
 
     Thread mThread;
@@ -211,6 +210,9 @@ public class ExplosionLayout extends View {
         }
     }
 
+    /**
+     * view销毁时，关闭线程
+     */
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();

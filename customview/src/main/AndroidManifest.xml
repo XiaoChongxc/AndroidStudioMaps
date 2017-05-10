@@ -24,6 +24,11 @@
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".view.ZoomHead.ZoomHeadActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
+
     </application>
 
 

@@ -30,7 +30,7 @@ public abstract class BaseListActivity extends BaseActivity {
 
 
     @Bind(R.id.toolbar)
-    Toolbar toolbar;
+    public Toolbar toolbar;
     @Bind(R.id.appbar)
     AppBarLayout appbar;
     @Bind(R.id.recyclerView)
@@ -46,16 +46,19 @@ public abstract class BaseListActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         initToolbar();
-
-        list = setData();
-        adapter = new BaseListAdapter(list, mContext, R.layout.item_list_view);
+        list = new ArrayList();
+        list.addAll(setData());
+        setAdapter();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        oninitComplete();
+        onInitComplete();
     }
 
+    public void setAdapter() {
+        adapter = new BaseListAdapter(list, mContext, R.layout.item_list_view);
+    }
 
-    public void oninitComplete() {
+    public void onInitComplete() {
 
     }
 
