@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+
+    defaultConfig {
+        applicationId "com.example.admin_xc.myapplication"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    //对话框
+    compile project(':alert_lib')
+    //联网 请求类
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+    //findbyid
+    compile 'com.jakewharton:butterknife:7.0.1'
+    //图片加载库
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    //使用okhttp 加载图片
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    //recycleView 动画
+    compile 'jp.wasabeef:recyclerview-animators:1.2.2'
+    //好看的log
+    compile 'com.orhanobut:logger:1.13'
+    //EventBus
+    compile 'org.greenrobot:eventbus:3.0.0'
+    //图片轮播
+    compile 'xyz.eraise:bannerview:1.0.5'
+    //    compile 'com.jude:easyrecyclerview:3.5.7'
+    //PhotoView
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
+
+    //友盟
+    compile 'com.umeng.analytics:analytics:latest.integration'
+}

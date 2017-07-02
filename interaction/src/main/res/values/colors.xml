@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/main</color>
+    <color name="colorPrimaryDark">@color/banner</color>
+    <color name="colorAccent">@color/banner</color>
+
+
+    <!--基础颜色值-->
+    <color name="main">#85AD4F</color>
+    <color name="layout_backgrond">#C9C79D</color>
+    <color name="banner">#006E6C</color>
+    <color name="white">#ffffff</color>
+
+    <color name="text_color">#333333</color>
+    <color name="text_description_color">#666666</color>
+<color name="line_color">#f0f0f0</color>
+
+</resources>

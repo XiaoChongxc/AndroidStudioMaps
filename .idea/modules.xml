@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidStudioMaps.iml" filepath="$PROJECT_DIR$/AndroidStudioMaps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/alert_lib/alert_lib.iml" filepath="$PROJECT_DIR$/alert_lib/alert_lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/baseModule/baseModule.iml" filepath="$PROJECT_DIR$/baseModule/baseModule.iml" />
       <module fileurl="file://$PROJECT_DIR$/customview/customview.iml" filepath="$PROJECT_DIR$/customview/customview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/interaction/interaction.iml" filepath="$PROJECT_DIR$/interaction/interaction.iml" />
     </modules>
   </component>
 </project>

@@ -1,1 +1,1 @@
-include ':app', ':customview'
+include ':app', ':customview', ':interaction', ':baseModule', ':alert_lib'

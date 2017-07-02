@@ -7,7 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import com.hangzhou.xc.test.customview.adapter.BaseListAdapter;
+import com.hangzhou.xc.test.customview.adapter.BaseRecyclerAdapter;
+import com.hangzhou.xc.test.customview.adapter.viewholder.BaseViewHolder;
 import com.hangzhou.xc.test.customview.model.ItemModel;
 import com.hangzhou.xc.test.customview.view.ExplosionView.ExplosionActivity;
 
@@ -36,7 +37,7 @@ public abstract class BaseListActivity extends BaseActivity {
     @Bind(R.id.recyclerView)
     public RecyclerView recyclerView;
 
-    public BaseListAdapter adapter;
+    public BaseRecyclerAdapter adapter;
     public List list;
 
     @Override
@@ -55,7 +56,13 @@ public abstract class BaseListActivity extends BaseActivity {
     }
 
     public void setAdapter() {
-        adapter = new BaseListAdapter(list, mContext, R.layout.item_list_view);
+        adapter = new BaseRecyclerAdapter<ItemModel>(list, mContext, R.layout.item_list_view) {
+            @Override
+            public void convert(BaseViewHolder holder, ItemModel o) {
+                holder.setText(R.id.tv_title, o.getTitle());
+                holder.setText(R.id.tv_description, o.getDescription());
+            }
+        };
     }
 
     public void onInitComplete() {
