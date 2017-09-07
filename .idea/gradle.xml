@@ -9,11 +9,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/alert_lib" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/baseModule" />
             <option value="$PROJECT_DIR$/customview" />
-            <option value="$PROJECT_DIR$/interaction" />
           </set>
         </option>
       </GradleProjectSettings>
